@@ -35,6 +35,9 @@ RUN pip3 install jupyterlab
 ENV PATH="/opt/venv/bin:$PATH"
 #RUN pip3 install anndata h5py numpy scipy pandas scanpy scib scvi muon
 
-RUN Rscript -e 'install.packages(c("devtools", "dplyr", "ggplot2", "tidyr", "stringr", "viridis", "ggthemes", "tidyverse", "BiocManager", "tibble"), dependencies = TRUE)'
+RUN R -e 'install.packages("devtools")
+RUN R -e 'install.packages("BiocManager")
+RUN R -e 'BiocManager::install("tidyverse")'
+RUN R -e 'install.packages(c("dplyr", "ggplot2", "tidyr", "stringr", "viridis", "ggthemes", "tibble"), dependencies = TRUE)'
 
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8080", "--no-browser", "--allow-root", "--ServerApp.allow_origin='*'", "--ServerApp.token=''"]
