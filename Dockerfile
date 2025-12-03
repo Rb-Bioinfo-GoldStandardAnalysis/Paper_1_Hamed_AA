@@ -74,6 +74,6 @@ RUN R -e "BiocManager::install('tidyverse')"
 
 RUN R -e 'install.packages(c("dplyr", "ggplot2", "tidyr", "stringr", "viridis", "ggthemes", "tibble"), dependencies = TRUE)'
 
-RUN R -e 'install.packages("devtools")
+#RUN R -e 'install.packages("devtools")
 
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8080", "--no-browser", "--allow-root", "--ServerApp.allow_origin='*'", "--ServerApp.token=''"]
