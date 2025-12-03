@@ -22,6 +22,37 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo wget zlib1g-dev libbz2-dev liblzma-dev libncurses5-dev pandoc git nano && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y \
+    curl \
+    software-properties-common \
+    dirmngr \
+    gpg \
+    curl \
+    build-essential \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    libfontconfig1-dev \
+    libfreetype6-dev \
+    libpng-dev \
+    libtiff5-dev \
+    libjpeg-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    make \
+    cmake \
+    gfortran \
+    libxt-dev \
+    liblapack-dev \
+    libblas-dev \
+    sudo \
+    wget \
+    nano \
+    pandoc \
+    git
+
+RUN rm -rf /var/lib/apt/lists/*
+
 # # Install JupyterLab
 # RUN apt update && apt install -y python3 python3-pip python3-venv
 # # create a virtual environment in which JupyterLab can be installed
@@ -29,7 +60,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # # Activate virtual environment and install JupyterLab
 # RUN /opt/venv/bin/pip install --upgrade pip && /opt/venv/bin/pip install jupyterlab
 
-RUN pip3 install jupyterlab
+RUN pip3 install jupyterlab \
+    && pip3 install --no-cache-dir jupyterlab notebook \
+    && Rscript -e "install.packages('IRkernel', repos='https://cloud.r-project.org'); IRkernel::installspec(user = FALSE)"
 
 # Set the virtual environment as the default Python path
 ENV PATH="/opt/venv/bin:$PATH"
